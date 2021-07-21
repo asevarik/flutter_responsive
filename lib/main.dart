@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_project/widgets/Caroseual_slider.dart';
 import 'package:flutter_responsive_project/widgets/Floating_Tile.dart';
 import './widgets/Product_description.dart';
 
@@ -247,6 +248,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+            ComplicatedImageDemo(
+              screenSize: screenSize,
+            )
           ],
         ),
       ),
