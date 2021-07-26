@@ -33,6 +33,7 @@ class ComplicatedImageDemo extends StatelessWidget {
                           child: Text(
                             item.title,
                             style: TextStyle(
+                              fontFamily: 'Electrolize',
                               letterSpacing: 8,
                               fontSize: screenSize.width / 25,
                               color: Colors.white,

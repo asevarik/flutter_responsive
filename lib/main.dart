@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_project/widgets/Bottom_bar_mobile.dart';
 import 'package:flutter_responsive_project/widgets/Caroseual_slider.dart';
+import 'package:flutter_responsive_project/widgets/Explore_bar.dart';
 import 'package:flutter_responsive_project/widgets/Floating_Tile.dart';
-import './widgets/Product_description.dart';
+import 'package:flutter_responsive_project/widgets/Floating_Tile_column.dart';
+import 'package:flutter_responsive_project/widgets/Responsive_widget.dart';
+import 'package:flutter_responsive_project/widgets/Reusable_Card.dart';
+import 'package:flutter_responsive_project/widgets/bottombar.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,7 +42,25 @@ class _MyHomePageState extends State<MyHomePage> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
+      appBar: ResponsiveWidget.isSmallScreen(context)?
+      AppBar( // for smaller screen sizes
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            'EXPLORE',
+            style: TextStyle(
+              color: Colors.blueGrey.shade100,
+              fontSize: 40,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w400,
+              letterSpacing: 3,
+            ),
+            
+          ),
+        )
+        
+        :    
+      PreferredSize(
         preferredSize: Size(screenSize.width, 1000),
         child: Container(
           color: Colors.transparent,
@@ -47,7 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text(
                   'EXPLORE',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white,
+                  fontSize: screenSize.width/27,
+                  ),
                 ),
                 Expanded(
                   child: Row(
@@ -201,8 +226,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      drawer: ExploreDrawer(),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -212,15 +239,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: screenSize.height * 0.45,
                     width: screenSize.width,
                     child: Image.asset(
-                      'images/cover.jpg',
+                      'assets/images/cover.jpg',
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Floating_Tile(screenSize: screenSize),
+               ResponsiveWidget.isSmallScreen(context)?Floating_Tile_Column(screenSize: screenSize) :Floating_Tile(screenSize: screenSize),
               ],
             ),
-            Product_Description(screenSize: screenSize),
+            
+            // Product_Description(screenSize: screenSize),
+          Padding(
+            padding: const EdgeInsets.only(left:30),
+            child: ListTile(title:Text(
+              'Featured',
+              style: TextStyle(
+                fontSize: 40,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              'Unique wildlife tours & destinations',
+            ),
+            ),
+          ),
+          
+          
             Padding(
               padding: EdgeInsets.only(
                 top: screenSize.height * 0.05,
@@ -242,7 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Reusable_card(
                     screenSize: screenSize,
-                    asset: 'assets/images/Photography.jpeg',
+                    asset: 'assets/images/photography.jpeg',
                     text: 'Photography',
                   ),
                 ],
@@ -250,7 +295,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ComplicatedImageDemo(
               screenSize: screenSize,
-            )
+            ),
+          ResponsiveWidget.isSmallScreen(context)?BottomBarMobile(screenSize: screenSize,):BottomBar()
           ],
         ),
       ),
@@ -258,45 +304,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class Reusable_card extends StatelessWidget {
-  const Reusable_card({
-    Key? key,
-    required this.screenSize,
-    required this.asset,
-    required this.text,
-  }) : super(key: key);
-
-  final Size screenSize;
-  final String asset;
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: screenSize.width / 6,
-          width: screenSize.width / 3.8,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: Image.asset(
-              asset,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: screenSize.height / 70,
-          ),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

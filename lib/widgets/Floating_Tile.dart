@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Floating_Tile extends StatelessWidget {
-  const Floating_Tile({
+  Floating_Tile({
     Key? key,
     required this.screenSize,
   }) : super(key: key);
 
   final Size screenSize;
-
+  final List<Text> titles=[
+                  
+        ];
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -23,7 +25,7 @@ class Floating_Tile extends StatelessWidget {
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(13.0),
-              child: Row(
+              child:Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
@@ -36,9 +38,10 @@ class Floating_Tile extends StatelessWidget {
                   Text("|"),
                   Text("Experience"),
                 ],
+              )
               ),
             ),
-          )),
-    );
+          ),
+          );
   }
 }
